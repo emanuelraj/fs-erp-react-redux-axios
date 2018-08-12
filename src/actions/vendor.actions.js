@@ -4,30 +4,49 @@ import { history } from '../helper';
 export const vendorAction = {
     getVendor,
     getVendorById,
-    editVendorInfo
+    onChangeProps,
+    editVendorInfo,
+    createVendor,
+    deleteVendorById
 };
 
 function getVendor(){
-
     return dispatch => {
         let apiEndpoint = 'vendors';
-        userService.getAllDetails(apiEndpoint)
+        userService.get(apiEndpoint)
         .then((response)=>{
-            console.log(response.data.data);
+            console.log(response);
             dispatch(changeVendorsList(response.data.data));
         })
     };
+}
+
+function createVendor(payload){
+    return dispatch => {
+        let apiEndpoint = 'vendors/';
+        userService.post(apiEndpoint, payload)
+        .then((response)=>{
+            dispatch(createUserInfo());
+            history.push('/vendor');
+        }) 
+    }
 }
 
 function getVendorById(id){
 
     return dispatch => {
         let apiEndpoint = 'vendors/'+ id;
-        userService.getAllDetails(apiEndpoint)
+        userService.get(apiEndpoint)
         .then((response)=>{
             dispatch(editVendorsDetails(response.data.data));
         })
     };
+}
+
+function onChangeProps(props, event){
+    return dispatch =>{
+        dispatch(handleOnChangeProps(props, event.target.value));
+    }
 }
 
 function editVendorInfo(id, payload){
@@ -39,23 +58,31 @@ function editVendorInfo(id, payload){
             history.push('/vendor');
         }) 
     }
-    // userService.post(apiEndpoint, payload)
-    //     .then((response)=>{
-    //         console.log(response.data);
-    //         if (response.data.token) {
-    //             localStorage.setItem('token', response.data.token);
-    //             localStorage.setItem('auth', response.data.auth);
-    //             dispatch(setUserDetails(response.data));
-    //             history.push('/home');
-    //         }
-            
-    //     })
+}
+
+function deleteVendorById(id){
+    return dispatch => {
+        let apiEndpoint = 'vendors/'+ id;
+        userService.deleteDetail(apiEndpoint)
+        .then((response)=>{
+            dispatch(deleteVendorsDetails());
+            dispatch(vendorAction.getVendor());
+        })
+    };
 }
 
 export function changeVendorsList(vendor){
     return{
         type: "FETECHED_ALL_VENDOR",
         vendor: vendor
+    }
+}
+
+export function handleOnChangeProps(props, value){
+    return{
+        type: "HANDLE_ON_CHANGE",
+        props: props,
+        value: value
     }
 }
 
@@ -73,5 +100,17 @@ export function editVendorsDetails(vendor){
 export function updatedUserInfo(){
     return{
         type: "USER_UPDATED"
+    }
+}
+
+export function createUserInfo(){
+    return{
+        type: "USER_CREATED_SUCCESSFULLY"
+    }
+}
+
+export function deleteVendorsDetails(){
+    return{
+        type: "DELETED_VENDOR_DETAILS"
     }
 }

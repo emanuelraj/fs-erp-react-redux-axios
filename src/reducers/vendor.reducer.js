@@ -27,6 +27,11 @@ export function vendor(state = initialState, action) {
         };
     case "USER_UPDATED":
         return state;
+    case "HANDLE_ON_CHANGE":
+        return {
+            ...state,
+            [action.props]: action.value
+        };    
     //   case userConstants.LOGOUT:
     //     return {};
       default:

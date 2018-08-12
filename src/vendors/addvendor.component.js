@@ -57,9 +57,10 @@ const styles = theme => ({
 
 class AddVendor extends Component {
   
-    // handleChange = prop => event => {
-    //     this.setState({ [prop]: event.target.value });
-    // };
+    handleChange = prop => event => {
+        const { dispatch } = this.props;
+        dispatch(vendorAction.onChangeProps(prop, event));
+    };
 
     componentDidMount() {
         const { match : {params } } = this.props;
@@ -72,37 +73,20 @@ class AddVendor extends Component {
 
 
     handleClick(event){
-        //console.log(this.props);
-        // const { history } = this.props;
-
         const { match : {params } } = this.props;
-
+        const { dispatch } = this.props;
+            
         let payload={
             name: this.props.vendor.name,
             mobile: this.props.vendor.mobile,
             phone_number: this.props.vendor.phone_number,
             address: this.props.vendor.address,
         }
+
         if(params.id){
-            const { dispatch } = this.props;
             dispatch(vendorAction.editVendorInfo(params.id, payload));
         }else{
-            // axios.post(apiBaseUrl + vendorsUrl, payload)
-            // .then(function (response) {
-            //     console.log(response);
-            //     if(response.status == 201){
-            //         console.log("Login successfull");
-            //         //store.set('loggedIn', true);
-            //         history.push('/vendor');
-            //     }else if(response.data.code == 204){
-            //         console.log("Username password do not match");
-            //     }else{
-            //         console.log("Username does not exists");
-            //     }
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
+            dispatch(vendorAction.createVendor(payload));
         }
     }
 
@@ -160,6 +144,7 @@ class AddVendor extends Component {
                                                 label="Name"
                                                 className={classes.textField}
                                                 value={this.props.vendor.name}
+                                                onChange={this.handleChange('name')}
                                                 margin="normal"
                                             />
                                         </Grid>
@@ -169,6 +154,7 @@ class AddVendor extends Component {
                                                 label="Mobile"
                                                 className={classes.textField}
                                                 value={this.props.vendor.mobile}
+                                                onChange={this.handleChange('mobile')}
                                                 margin="normal"
                                             />
                                         </Grid>
@@ -178,6 +164,7 @@ class AddVendor extends Component {
                                                 label="Phone"
                                                 className={classes.textField}
                                                 value={this.props.vendor.phone_number}
+                                                onChange={this.handleChange('phone_number')}
                                                 margin="normal"
                                             />
                                         </Grid>
@@ -189,6 +176,7 @@ class AddVendor extends Component {
                                                 rowsMax="4"
                                                 className={classes.textField}
                                                 value={this.props.vendor.address}
+                                                onChange={this.handleChange('address')}
                                                 margin="normal"
                                             />
                                         </Grid>

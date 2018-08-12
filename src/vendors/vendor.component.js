@@ -93,13 +93,10 @@ class Vendor extends Component {
 
 
       handleClick = (event, id) => {
-        //const { history } = this.props;
-        //console.log("Delete ", id);
-        // axios.delete(apiBaseUrl + vendorsUrl + `/${id}`)
-        // .then(() => {
-        //   console.log('user deleted');
-        //   this.componentDidMount();
-        // });
+        console.log(id);
+        const { dispatch } = this.props;
+        dispatch(vendorAction.deleteVendorById(id))
+        //this.componentDidMount();
       };
     
    render() {

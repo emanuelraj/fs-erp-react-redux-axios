@@ -3,12 +3,13 @@ import config from '../config';
 
 
 export const userService = {
-    getAllDetails,
+    get,
     post,
-    put
+    put,
+    deleteDetail
 };
 
-function getAllDetails(apiEndpoint){
+function get(apiEndpoint){
     return axios.get(config.baseUrl+apiEndpoint).then((response)=>{
         return response;
     }).catch((err)=>{
@@ -26,6 +27,14 @@ function post(apiEndpoint, payload){
 
 function put(apiEndpoint, payload){
     return axios.put(config.baseUrl+apiEndpoint, payload).then((response)=>{
+        return response;
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
+
+function deleteDetail(apiEndpoint){
+    return axios.delete(config.baseUrl+apiEndpoint).then((response)=>{
         return response;
     }).catch((err)=>{
         console.log(err);
