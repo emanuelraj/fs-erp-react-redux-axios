@@ -4,7 +4,8 @@ import config from '../config';
 
 export const userService = {
     getAllDetails,
-    post
+    post,
+    put
 };
 
 function getAllDetails(apiEndpoint){
@@ -17,6 +18,14 @@ function getAllDetails(apiEndpoint){
 
 function post(apiEndpoint, payload){
     return axios.post(config.baseUrl+apiEndpoint, payload).then((response)=>{
+        return response;
+    }).catch((err)=>{
+        console.log(err);
+    })
+}
+
+function put(apiEndpoint, payload){
+    return axios.put(config.baseUrl+apiEndpoint, payload).then((response)=>{
         return response;
     }).catch((err)=>{
         console.log(err);

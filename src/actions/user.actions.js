@@ -2,22 +2,8 @@ import { userService } from '../services/';
 import { history } from '../helper';
 
 export const userActions = {
-    getVendor,
     login
 };
-
-
-function getVendor(){
-
-    return dispatch => {
-        let apiEndpoint = 'vendors';
-        userService.getAllDetails(apiEndpoint)
-        .then((response)=>{
-            console.log(response.data.data);
-            dispatch(changeVendorsList(response.data.data));
-        })
-    };
-}
 
 function login(username, password){
     return dispatch => {
@@ -38,13 +24,6 @@ function login(username, password){
             
         })
     };
-}
-
-export function changeVendorsList(vendor){
-    return{
-        type: "GET_ALL_VENDOR_DETAILS",
-        vendor: vendor
-    }
 }
 
 export function setUserDetails(user){

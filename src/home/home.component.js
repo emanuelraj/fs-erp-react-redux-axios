@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';  
 import { withRouter } from 'react-router-dom';
+import AppBar from '../menubar/appbar';
+import Nav from '../menubar/nav'; 
 
 
 const drawerWidth = 240;
@@ -13,7 +15,7 @@ const styles = theme => ({
     flexGrow: 1,
   },
   appFrame: {
-    height: 430,
+    //height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -55,8 +57,8 @@ class Home extends Component {
 
         <div className={classes.root}>
             <div className={classes.appFrame}>
-            {/* <AppBar/>
-            <Nav /> */}
+            <AppBar/>
+            <Nav />
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Typography>{'Home'}</Typography>
@@ -86,5 +88,3 @@ const connectedHomePage = withRouter(connect(mapStateToProps, null, null, {
   pure: false
 })(withStyles(styles)(Home)));
 export { connectedHomePage as Home };
-// const connectedHomePage = connect(mapStateToProps)(Home);
-// export { connectedHomePage as Home };
