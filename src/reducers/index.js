@@ -1,18 +1,16 @@
-let defaultState = {
-    color: "red"
-}
+import { combineReducers } from 'redux';
 
-const mainReducer=(state=defaultState, action)=>{
-    if(action.type === "CHANGE_COLOR"){
-        return{
-            ...state,
-            color: action.color
-        }
-    }else{
-        return{
-            ...state
-        }
-    }
-}
+import { authentication } from './auth.reducer';
+// import { registration } from './registration.reducer';
+// import { users } from './users.reducer';
+// import { alert } from './alert.reducer';
 
-export default mainReducer;
+const rootReducer = combineReducers({
+  authentication
+//   ,
+//   registration,
+//   users,
+//   alert
+});
+
+export default rootReducer;
