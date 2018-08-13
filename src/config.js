@@ -1,4 +1,4 @@
 
 module.exports = {
-    baseUrl: 'http://18.219.238.140:8001/api/v1/'
+    baseUrl: 'http://13.58.206.52:8001/api/v1/'
 }
