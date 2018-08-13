@@ -16,6 +16,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import { userActions } from '../actions';
+import { connect } from 'react-redux';
+
 //import Vendor from '../vendor/vendor';
 
 const drawerWidth = 240;
@@ -55,24 +58,18 @@ const styles = theme => ({
 
 class Navigation extends React.Component {
 
-    // state = {
-    //     anchor: 'left',
-    //   };
-    
-    //   handleChange = event => {
-    //     this.setState({
-    //       anchor: event.target.value,
-    //     });
-    //   };
-
     constructor(props){
         super(props);
         this.state={
-            username: '',
-            password: '',
-            showPassword: false,
             anchor: 'left',
         }
+    }
+
+    logout = event =>{
+        const { dispatch } = this.props;
+        console.log(this.props);
+        console.log(localStorage.getItem('auth'));
+        dispatch(userActions.logout());
     }
 
     render() {
@@ -89,23 +86,23 @@ class Navigation extends React.Component {
             >
                 <List component="nav">
                     <ListItem button component='a' href="/home">
-                    <ListItemIcon>
-                        <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Home"/>
+                        <ListItemIcon>
+                            <InboxIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Home"/>
                     </ListItem>
 
                     <ListItem button component='a' href="/vendor">
-                    <ListItemIcon>
-                        <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Vendors"/>
+                        <ListItemIcon>
+                            <InboxIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Vendors"/>
                     </ListItem>
-                    <ListItem button component='a' href="/product-catlog">
-                    <ListItemIcon>
-                        <DraftsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Product Category"/>
+                    <ListItem button onClick={(event)=>{this.logout()}}>
+                        <ListItemIcon>
+                            <DraftsIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Logout"/>
                     </ListItem>
                 </List>
                 <Divider />
@@ -118,4 +115,13 @@ Navigation.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-  export default withStyles(styles)(Navigation);
+//export default withStyles(styles)(Navigation);
+
+const mapStateToProps = (state) =>{
+    const { loggingIn } = state.authentication;
+    return {
+        loggingIn
+    };
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Navigation));

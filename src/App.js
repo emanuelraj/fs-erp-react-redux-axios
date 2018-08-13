@@ -7,6 +7,8 @@ import AddVendor from './vendors/addvendor.component'
 import Login from './login/login.component';
 import { Home } from './home/';
 import { history } from './helper';
+import { PrivateRoute } from './components';
+
 
 class App extends Component {
   constructor(props) {
@@ -25,11 +27,11 @@ class App extends Component {
         <Router history={history}>
           <div>            
               <Switch>
-                <Route exact path='/home' component={Home} />
+                <PrivateRoute exact path='/home' component={Home} />
+                <PrivateRoute exact path='/vendor' component={Vendor} />
+                <PrivateRoute exact path='/edit-vendor/:id' component={AddVendor} />
+                <PrivateRoute exact path='/add-vendor' component={AddVendor} />
                 <Route exact path='/' component={Login} />
-                <Route exact path='/vendor' component={Vendor} />
-                <Route exact path='/edit-vendor/:id' component={AddVendor} />
-                <Route exact path='/add-vendor' component={AddVendor} />
                 {/* 
                 <Route exact path='/product-catlog' component={ProductCatlog} /> */}
               </Switch>

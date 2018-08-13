@@ -17,7 +17,12 @@ import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { userActions } from '../actions';
 import { history } from '../helper';
+import './login.component.css'
+//import MuiThemeProvider from '@material-ui/styles/MuiThemeProvider';
 
+const style = {
+    margin: 15,
+   };
 
 const styles = theme => ({
     root: {
@@ -90,79 +95,43 @@ class Login extends Component {
         }
     }
 
-    // handleClickShowPassword = () => {
-    //     this.setState(state => ({ showPassword: !state.showPassword }));
-    // };
-
-    // handleClick(event){
-    //     const { history } = this.props;
-
-    //     const apiBaseUrl = "http://18.219.238.140:8001/api/v1/";
-    //     //const apiBaseUrl = "http://localhost:8001/api/v1/";
-
-    //     const loginUrl = 'auths/login'
-
-    //     let payload={
-    //         "email_id":this.state.username,
-    //         "password":this.state.password
-    //     }
-    //     axios.post(apiBaseUrl+loginUrl, payload)
-    //     .then(function (response) {
-    //         console.log(response);
-    //         if(response.status == 200){
-    //             console.log("Login successfull");
-    //             //store.set('loggedIn', true);
-    //             history.push('/home');
-    //         }else if(response.data.code == 204){
-    //             console.log("Username password do not match");
-    //         }else{
-    //             console.log("Username does not exists");
-    //         }
-    //     })
-    //     .catch(function (error) {
-    //         console.log(error);
-    //     });
-    // }
-    
-
    render() {
       const { classes } = this.props;
       return (
-        <div className={classes.root}>
+        <div className="login-margin">
             <Grid container spacing={24}>
                 <Grid item xs={3}>
                 </Grid>
                 <Grid item xs={6}>
                     <Paper className={classes.paper}>
-                        <form className={classes.container}>
-                            <TextField
-                                id="username"
-                                label="Username"
-                                className={classes.textField}
-                                value={this.state.username}
-                                onChange={this.handleChange('username')}
-                                margin="normal"
+                        <div>
+                        <TextField
+                            label="Username"
+                            value={this.state.username}
+                            className={classes.textField}
+                            onChange = {this.handleChange('username')}
                             />
-
-                            <TextField
-                                id="password-input"
-                                label="Password"
-                                autoComplete="current-password"
-                                type={this.state.showPassword ? 'text' : 'password'}
-                                className={classes.textField}
-                                value={this.state.password}
-                                onChange={this.handleChange('password')}
-                                margin="normal"
-                            />
-                            <Button variant="contained" color="primary" className={classes.button} onClick={(event)=>{this.login()}}>
-                                Login
-                            </Button>
-                        </form>
+                        <br/>
+                        <br/>
+                        <TextField
+                            label="Password"
+                            autoComplete="current-password"
+                            type={this.state.showPassword ? 'text' : 'password'}
+                            className={classes.textField}
+                            value={this.state.password}
+                            onChange={this.handleChange('password')}
+                        />
+                        <br/>
+                        <br/>
+                        <Button variant="contained" color="primary" className={classes.button} onClick={(event)=>{this.login()}}>
+                            Login
+                        </Button>
+                        </div>
                     </Paper>
                 </Grid>
                 <Grid item xs={3}>
                 </Grid>
-            </Grid>         
+            </Grid>
         </div>
       );
    }

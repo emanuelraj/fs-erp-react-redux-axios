@@ -18,8 +18,10 @@ export function authentication(state = initialState, action) {
     //     };
     //   case userConstants.LOGIN_FAILURE:
     //     return {};
-    //   case userConstants.LOGOUT:
-    //     return {};
+      case 'LOGOUT_SUCCESS':
+        return {
+          auth: false
+        };
       default:
         return state
     }

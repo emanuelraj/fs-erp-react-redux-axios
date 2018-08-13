@@ -2,7 +2,8 @@ import { userService } from '../services/';
 import { history } from '../helper';
 
 export const userActions = {
-    login
+    login,
+    logout
 };
 
 function login(username, password){
@@ -26,10 +27,27 @@ function login(username, password){
     };
 }
 
+function logout(){
+    return dispatch => {
+        localStorage.removeItem('auth');
+        localStorage.removeItem('token');
+        dispatch(logoutUser());
+        history.push('/');
+    }
+}
+
 export function setUserDetails(user){
     return{
         type: "LOGIN_SUCCESS",
         auth: user.auth,
         token: user.token
+    }
+}
+
+export function logoutUser(){
+    return{
+        type: "LOGOUT_SUCCESS",
+        auth: false,
+        token: ''
     }
 }
